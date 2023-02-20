@@ -1,0 +1,63 @@
+name: icare_pro
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_svg: ^1.0.0
+  google_fonts: ^4.0.3
+  intl: ^0.18.0
+  shared_preferences: ^2.0.17
+  
+
+dev_dependencies:
+  flutter_app_name: ^0.1.0
+  flutter_launcher_icons: "^0.11.0"
+  flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.0
+  flutter_test:
+    sdk: flutter
+
+flutter_app_name:
+  name: "iCare Pro"
+
+flutter_native_splash:
+  color: "#005C29"
+  image: assets/images/icare_logo.png
+  android: true
+  ios: true
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icare_logo.jpg"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  
+flutter:
+  assets:
+    - assets/icons/
+    - assets/images/
+  uses-material-design: true
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
