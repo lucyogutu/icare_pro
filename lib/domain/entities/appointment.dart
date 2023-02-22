@@ -1,11 +1,9 @@
 class Appointment {
   final DateTime date;
-  final String doctor;
-  final String profession;
+  final String patient;
 
   Appointment({
     required this.date,
-    required this.doctor,
-    required this.profession,
+    required this.patient,
   });
 }

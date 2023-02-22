@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           prefs.setBool('showHome', true);
                           Navigator.of(context)
-                              .pushReplacementNamed(AppRoutes.home);
+                              .pushReplacementNamed(AppRoutes.tabAppointment);
                         },
                         text: signInString,
                       ),

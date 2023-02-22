@@ -50,5 +50,15 @@ const String rescheduleString = 'Reschedule';
 
 const String upcomingAppointmentsString = 'Upcoming Appointments';
 const String notificationString = 'Notifications';
-const String physicianString = 'Physician';
-const String nurseString = 'Nurse';
+// const String physicianString = 'Physician';
+// const String nurseString = 'Nurse';
+const String appointmentString = 'Appointment';
+
+const String upcomingString = 'Upcoming';
+const String pastString = 'Past';
+const String canceledString = 'Canceled';
+const String okayThanksString = 'Okay, Thanks';
+
+const String timeString = 'Time';
+const String dateString = 'Date';
+const String patientString = 'Patient';

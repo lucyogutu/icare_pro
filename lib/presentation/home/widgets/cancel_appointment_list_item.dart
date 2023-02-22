@@ -6,17 +6,15 @@ import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/presentation/core/icare_elevated_button.dart';
 import 'package:intl/intl.dart';
 
-class AppointmentListItemWidget extends StatelessWidget {
-  const AppointmentListItemWidget({
+class CancelAppointmentListItemWidget extends StatelessWidget {
+  const CancelAppointmentListItemWidget({
     super.key,
     required this.patientName,
-    this.onPressed,
     required this.date,
   });
 
   final String patientName;
   final DateTime date;
-  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -79,24 +77,10 @@ class AppointmentListItemWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              child: ICareElevatedButton(
-                                text: cancelString,
-                                buttonColor: AppColors.errorColor,
-                                borderColor: Colors.transparent,
-                                onPressed: onPressed,
-                              ),
-                            ),
-                            SizedBox(
-                              child: ICareElevatedButton(
-                                text: rescheduleString,
-                                onPressed: onPressed,
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: ICareElevatedButton(
+                              text: rescheduleString, onPressed: () {}),
                         ),
                       ],
                     ),
