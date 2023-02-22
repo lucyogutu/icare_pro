@@ -50,8 +50,6 @@ const String rescheduleString = 'Reschedule';
 
 const String upcomingAppointmentsString = 'Upcoming Appointments';
 const String notificationString = 'Notifications';
-// const String physicianString = 'Physician';
-// const String nurseString = 'Nurse';
 const String appointmentString = 'Appointment';
 
 const String upcomingString = 'Upcoming';
@@ -62,3 +60,25 @@ const String okayThanksString = 'Okay, Thanks';
 const String timeString = 'Time';
 const String dateString = 'Date';
 const String patientString = 'Patient';
+
+const String profileString = 'Profile';
+const String personalDetailsString = 'Personal Details';
+const String historyString = 'History';
+const String helpString = 'Help';
+const String favouriteString = 'Favourites';
+const String logoutString = 'Logout';
+const String optOutString = 'Opt-out';
+const String editString = 'Edit';
+const String editPersonalDetailsString = 'Edit Personal Details';
+const String saveString = 'Save';
+
+const String logoutDescription = 'Are you sure you want to logout? ';
+const String optoutDescription =
+    'Are you sure you want to opt out? This will delete all your details from the application ';
+
+const String yesLogout = 'Yes, Logout';
+const String yesOptout = 'Yes, Opt out';
+const String noCancel = 'No, Cancel';
+const String aboutString = 'About';
+const String appAboutString =
+    'i~Care is the best online doctor appointment app scheduler for your health needs';

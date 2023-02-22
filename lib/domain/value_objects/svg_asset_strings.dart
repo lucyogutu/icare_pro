@@ -7,3 +7,4 @@ const String googleIconSvg = 'assets/icons/google.svg';
 const String facebookIconSvg = 'assets/icons/facebook.svg';
 
 const String userSvg = 'assets/icons/user.svg';
+const String onlinePageSvg = 'assets/images/online_page.svg';

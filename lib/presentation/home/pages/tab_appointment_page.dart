@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:icare_pro/application/core/colors.dart';
 import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
+import 'package:icare_pro/domain/value_objects/svg_asset_strings.dart';
+import 'package:icare_pro/presentation/core/routes.dart';
 import 'package:icare_pro/presentation/home/pages/canceled_appointments_page.dart';
 import 'package:icare_pro/presentation/home/pages/past_appointment_page.dart';
 import 'package:icare_pro/presentation/home/pages/upcoming_appointment_page.dart';
@@ -23,6 +26,25 @@ class _TabAppointmentPageState extends State<TabAppointmentPage> {
           return [
             SliverAppBar(
               automaticallyImplyLeading: false,
+              leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: InkWell(
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.profile),
+            splashColor: AppColors.primaryColor,
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: AppColors.whiteColor,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SvgPicture.asset(
+                  userSvg,
+                  fit: BoxFit.cover,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+            ),
+          ),
+        ),
               title: Text(
                 appointmentString,
                 style: heavySize20Text(AppColors.whiteColor),
