@@ -49,6 +49,8 @@ const String cancelString = 'Cancel';
 const String rescheduleString = 'Reschedule';
 
 const String upcomingAppointmentsString = 'Upcoming Appointments';
+const String canceledAppointmentsString = 'Canceled Appointments';
+const String pastAppointmentsString = 'Past Appointments';
 const String notificationString = 'Notifications';
 const String appointmentString = 'Appointment';
 

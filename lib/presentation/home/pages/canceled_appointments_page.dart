@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:icare_pro/application/core/colors.dart';
+import 'package:icare_pro/application/core/spaces.dart';
+import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/presentation/core/zero_state_widget.dart';
@@ -28,6 +31,14 @@ class CancelAppointmentsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Text(
+                  canceledAppointmentsString,
+                  style: boldSize16Text(AppColors.blackColor),
+                ),
+              ),
+              smallVerticalSizedBox,
               if (appointments.isNotEmpty) ...[
                 ...appointments.map((appointment) {
                   return CancelAppointmentListItemWidget(

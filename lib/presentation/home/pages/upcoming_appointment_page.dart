@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:icare_pro/application/core/colors.dart';
+import 'package:icare_pro/application/core/spaces.dart';
+import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
+import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/presentation/core/zero_state_widget.dart';
 import 'package:icare_pro/presentation/home/widgets/appointment_list_item_widget.dart';
 
@@ -43,6 +47,14 @@ class UpcomingAppointmentsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Text(
+                  upcomingAppointmentsString,
+                  style: boldSize16Text(AppColors.blackColor),
+                ),
+              ),
+              smallVerticalSizedBox,
               if (appointments.isNotEmpty) ...[
                 ...appointments.map((appointment) {
                   return AppointmentListItemWidget(
