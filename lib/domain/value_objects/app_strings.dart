@@ -32,6 +32,13 @@ const String lastNameString = 'Last Name';
 const String fullNameHintString = 'John Doe';
 const String firstNameHintString = 'John';
 const String lastNameHintString = 'Doe';
+const String bioString = 'Bio';
+const String biohintString = 'Tell us about yourself';
+const String specializationString = 'Specialization';
+const String yearsOfExperienceString = 'Years of Experience';
+const String clinicString = 'Clinic';
+const String addressString = 'Address';
+
 const String genderString = 'Gender';
 const String dateOfBirthString = 'Date of Birth';
 const String dateOfBirthHintString = '2021-03-14';
@@ -103,3 +110,5 @@ const String retryString = 'RETRY';
 const String errorString = 'Error';
 const String successUserRegistered = 'User registered successfully';
 const String successLogin = 'Login successful';
+
+const String somethingWentWrongString = 'Something went wrong';

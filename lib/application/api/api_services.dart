@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:icare_pro/application/api/endpoints.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
 import 'package:icare_pro/domain/entities/user.dart';
+import 'package:icare_pro/domain/value_objects/app_strings.dart';
 
 const FlutterSecureStorage storage = FlutterSecureStorage();
 
@@ -34,6 +35,7 @@ Future<User> registerUser(User user) async {
         'years_of_experience': user.yearsOfExperience,
         'clinic': user.clinic,
         'address': user.address,
+        'is_doctor': user.isDoctor,
       }),
     );
 
@@ -47,7 +49,7 @@ Future<User> registerUser(User user) async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -75,7 +77,7 @@ Future<User> loginUser(User user) async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -102,7 +104,7 @@ Future<User> logoutUser() async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -124,7 +126,7 @@ Future<User> getProfile() async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -152,6 +154,7 @@ Future<User> editUserProfile(User user) async {
         'years_of_experience': user.yearsOfExperience,
         'clinic': user.clinic,
         'address': user.address,
+        'is_doctor': user.isDoctor,
       }),
     );
 
@@ -161,7 +164,7 @@ Future<User> editUserProfile(User user) async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -185,7 +188,7 @@ Future<List<Appointment>> getUpcomingAppointments() async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
@@ -210,14 +213,13 @@ Future<List<Appointment>> getCanceledAppointments() async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }
 
 Future<List<Appointment>> getPastAppointments() async {
   final authToken = await storage.read(key: 'access');
-  Uri url =
-      Uri.parse(APIEndpoints.baseUrl + APIEndpoints.viewPastAppointments);
+  Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.viewPastAppointments);
   try {
     final response = await http.get(
       url,
@@ -235,6 +237,6 @@ Future<List<Appointment>> getPastAppointments() async {
       throw Exception(response.body);
     }
   } catch (e) {
-    throw Exception(e.toString());
+    throw Exception(somethingWentWrongString);
   }
 }

@@ -11,6 +11,7 @@ import 'package:icare_pro/domain/value_objects/enums.dart';
 import 'package:icare_pro/domain/value_objects/regex.dart';
 import 'package:icare_pro/domain/value_objects/svg_asset_strings.dart';
 import 'package:icare_pro/presentation/core/icare_elevated_button.dart';
+import 'package:icare_pro/presentation/core/icare_text_button.dart';
 import 'package:icare_pro/presentation/core/icare_text_form_field.dart';
 import 'package:intl/intl.dart';
 import 'package:string_validator/string_validator.dart';
@@ -109,6 +110,38 @@ class _RegisterPageState extends State<RegisterPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _registerUser = registerUser(_user);
+      // showDialog(
+      //   context: context,
+      //   builder: (context){
+      //     return AlertDialog(
+      //   title: const Text('Registered User'),
+      //   content: Column(
+      //     children: [
+      //       smallVerticalSizedBox,
+      //       Text('First Name: ${_user.firstName}'),
+      //       Text('Last Name: ${_user.lastName}'),
+      //       Text('Email: ${_user.email}'),
+      //       Text('PhoneNumber: ${_user.phoneNumber}'),
+      //       Text('Gender: ${_user.gender}'),
+      //       Text('Password: ${_user.password}'),
+      //       Text('Date of Birth: ${_user.dateOfBirth}'),
+      //       Text('Bio: ${_user.bio}'),
+      //       Text('Specialization: ${_user.specialization}'),
+      //       Text('Years of Experience: ${_user.yearsOfExperience}'),
+      //       Text('Clinic: ${_user.clinic}'),
+      //       Text('address: ${_user.address}'),
+      //     ],
+      //   ),
+      //   actions: [
+      //     ICareTextButton(
+      //       onPressed: () => Navigator.of(context).pop(),
+      //       text: 'OK',
+      //       style: boldSize14Text(AppColors.primaryColor),
+      //     ),
+      //   ],
+      // );
+      //   },
+      // );
     }
   }
 
@@ -178,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               setState(
                                 () {
                                   _user = User(
-                                    firstName: value,
+                                    firstName: value!,
                                     lastName: _user.lastName,
                                     email: _user.email,
                                     phoneNumber: _user.phoneNumber,
@@ -195,6 +228,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
                             },
                           ),
+                          mediumVerticalSizedBox,
                           // last name
                           ICareTextFormField(
                             label: lastNameString,
@@ -212,7 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 () {
                                   _user = User(
                                     firstName: _user.firstName,
-                                    lastName: value,
+                                    lastName: value!,
                                     email: _user.email,
                                     phoneNumber: _user.phoneNumber,
                                     gender: _user.gender,
@@ -247,7 +281,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               _user = User(
                                 firstName: _user.firstName,
                                 lastName: _user.lastName,
-                                email: value,
+                                email: value!,
                                 phoneNumber: _user.phoneNumber,
                                 gender: _user.gender,
                                 password: _user.password,
@@ -332,7 +366,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   email: _user.email,
                                   phoneNumber: _user.phoneNumber,
                                   gender: _user.gender,
-                                  password: value,
+                                  password: value!,
                                   dateOfBirth: _user.dateOfBirth,
                                   bio: _user.bio,
                                   specialization: _user.specialization,
@@ -465,7 +499,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                               if (pickedDate != null) {
                                 String formattedDate =
-                                    DateFormat('dd-MM-yyyy').format(pickedDate);
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
                                 setState(() {
                                   dateinput.text =
                                       formattedDate; //set output date to TextField value.
@@ -489,7 +523,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   phoneNumber: _user.phoneNumber,
                                   gender: _user.gender,
                                   password: _user.password,
-                                  dateOfBirth: value,
+                                  dateOfBirth: value!,
                                   bio: _user.bio,
                                   specialization: _user.specialization,
                                   yearsOfExperience: _user.yearsOfExperience,
@@ -497,6 +531,199 @@ class _RegisterPageState extends State<RegisterPage> {
                                   address: _user.address,
                                 );
                               });
+                            },
+                          ),
+                          mediumVerticalSizedBox,
+                          // bio
+                          TextFormField(
+                            cursorColor: AppColors.primaryColor,
+                            decoration: InputDecoration(
+                              hintStyle: const TextStyle(
+                                  color: AppColors.hintTextColor),
+                              prefixIcon: const Icon(
+                                Icons.person,
+                                color: AppColors.primaryColor,
+                              ),
+                              labelText: bioString,
+                              //lable style
+                              labelStyle:
+                                  normalSize14Text(AppColors.primaryColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
+                              filled: true,
+                              fillColor: AppColors.whiteColor,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.primaryColor,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              contentPadding: const EdgeInsets.all(8.0),
+                            ),
+                            style: const TextStyle(
+                              color: AppColors.blackColor,
+                            ),
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return fieldCannotBeEmptyString;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              setState(
+                                () {
+                                  _user = User(
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    phoneNumber: _user.phoneNumber,
+                                    gender: _user.gender,
+                                    password: _user.password,
+                                    dateOfBirth: _user.dateOfBirth,
+                                    bio: value!,
+                                    specialization: _user.specialization,
+                                    yearsOfExperience: _user.yearsOfExperience,
+                                    clinic: _user.clinic,
+                                    address: _user.address,
+                                  );
+                                },
+                              );
+                            },
+                            maxLines: 3,
+                          ),
+                          mediumVerticalSizedBox,
+                          // specialization
+                          ICareTextFormField(
+                            label: specializationString,
+                            prefixIcon: Icons.person,
+                            fillColor: AppColors.whiteColor,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return fieldCannotBeEmptyString;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              setState(
+                                () {
+                                  _user = User(
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    phoneNumber: _user.phoneNumber,
+                                    gender: _user.gender,
+                                    password: _user.password,
+                                    dateOfBirth: _user.dateOfBirth,
+                                    bio: _user.bio,
+                                    specialization: value!,
+                                    yearsOfExperience: _user.yearsOfExperience,
+                                    clinic: _user.clinic,
+                                    address: _user.address,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          mediumVerticalSizedBox,
+                          // years of experience
+                          ICareTextFormField(
+                            label: yearsOfExperienceString,
+                            prefixIcon: Icons.person,
+                            fillColor: AppColors.whiteColor,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return fieldCannotBeEmptyString;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              setState(
+                                () {
+                                  _user = User(
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    phoneNumber: _user.phoneNumber,
+                                    gender: _user.gender,
+                                    password: _user.password,
+                                    dateOfBirth: _user.dateOfBirth,
+                                    bio: _user.bio,
+                                    specialization: _user.specialization,
+                                    yearsOfExperience: int.parse(value!),
+                                    clinic: _user.clinic,
+                                    address: _user.address,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          mediumVerticalSizedBox,
+                          // clinic
+                          ICareTextFormField(
+                            label: clinicString,
+                            prefixIcon: Icons.person,
+                            fillColor: AppColors.whiteColor,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return fieldCannotBeEmptyString;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              setState(
+                                () {
+                                  _user = User(
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    phoneNumber: _user.phoneNumber,
+                                    gender: _user.gender,
+                                    password: _user.password,
+                                    dateOfBirth: _user.dateOfBirth,
+                                    bio: _user.bio,
+                                    specialization: _user.specialization,
+                                    yearsOfExperience: _user.yearsOfExperience,
+                                    clinic: value!,
+                                    address: _user.address,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          mediumVerticalSizedBox,
+                          // address
+                          ICareTextFormField(
+                            label: addressString,
+                            prefixIcon: Icons.person,
+                            fillColor: AppColors.whiteColor,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return fieldCannotBeEmptyString;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              setState(
+                                () {
+                                  _user = User(
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    phoneNumber: _user.phoneNumber,
+                                    gender: _user.gender,
+                                    password: _user.password,
+                                    dateOfBirth: _user.dateOfBirth,
+                                    bio: _user.bio,
+                                    specialization: _user.specialization,
+                                    yearsOfExperience: _user.yearsOfExperience,
+                                    clinic: _user.clinic,
+                                    address: value!,
+                                  );
+                                },
+                              );
                             },
                           ),
                           mediumVerticalSizedBox,

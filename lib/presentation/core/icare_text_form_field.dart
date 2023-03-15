@@ -21,7 +21,6 @@ class ICareTextFormField extends StatelessWidget {
     this.initialValue,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.obscureText = false,
-    this.maxLength,
     this.textInputAction,
     this.prefixIcon,
     this.suffixIcon,
@@ -45,7 +44,6 @@ class ICareTextFormField extends StatelessWidget {
   final String? initialValue;
   final AutovalidateMode autovalidateMode;
   final bool obscureText;
-  final int? maxLength;
   final TextInputAction? textInputAction;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
@@ -98,13 +96,13 @@ class ICareTextFormField extends StatelessWidget {
         color: AppColors.blackColor,
       ),
       onChanged: onChanged,
+      onSaved: onSaved,
       onFieldSubmitted: onFieldSubmitted,
       validator: validator,
       autovalidateMode: autovalidateMode,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       obscureText: obscureText,
-      maxLength: maxLength,
     );
   }
 }

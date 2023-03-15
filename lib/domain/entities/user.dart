@@ -10,7 +10,8 @@ class User {
   final String? specialization;
   final int? yearsOfExperience;
   final String? clinic;
-  final String address;
+  final String? address;
+  final bool? isDoctor;
 
   User({
     required this.firstName,
@@ -25,6 +26,7 @@ class User {
     required this.yearsOfExperience,
     required this.clinic,
     required this.address,
+    this.isDoctor = true,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class User {
       yearsOfExperience: json['years_of_experience'],
       clinic: json['clinic'],
       address: json['address'],
+      isDoctor: json['is_doctor'],
     );
   }
 
@@ -57,5 +60,6 @@ class User {
         'years_of_experience': yearsOfExperience,
         'clinic': clinic,
         'address': address,
+        'is_doctor': isDoctor,
       };
 }

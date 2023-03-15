@@ -13,30 +13,30 @@ class UpcomingAppointmentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Appointment> appointments = [
-      Appointment(
-        date: DateTime.now(),
-        patient: 'John Doe',
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'Lucy Ogutu',
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'Jane Doe',
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'Emily White',
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'James Bond',
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'Alexander',
-      ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'John Doe',
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'Lucy Ogutu',
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'Jane Doe',
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'Emily White',
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'James Bond',
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'Alexander',
+      // ),
     ];
 
     return Scaffold(
@@ -58,8 +58,8 @@ class UpcomingAppointmentsPage extends StatelessWidget {
               if (appointments.isNotEmpty) ...[
                 ...appointments.map((appointment) {
                   return AppointmentListItemWidget(
-                    patientName: appointment.patient,
-                    date: appointment.date,
+                    patientName: appointment.patient.toString(),
+                    date: DateTime.tryParse(appointment.date!)!,
                   );
                 }).toList(),
               ] else

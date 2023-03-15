@@ -13,14 +13,14 @@ class CancelAppointmentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Appointment> appointments = [
-      Appointment(
-        date: DateTime.now(),
-        patient: fullNameHintString,
-      ),
-      Appointment(
-        date: DateTime.now(),
-        patient: 'Lucy Ogutu',
-      ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: fullNameHintString,
+      // ),
+      // Appointment(
+      //   date: DateTime.now(),
+      //   patient: 'Lucy Ogutu',
+      // ),
     ];
 
     return Scaffold(
@@ -42,8 +42,8 @@ class CancelAppointmentsPage extends StatelessWidget {
               if (appointments.isNotEmpty) ...[
                 ...appointments.map((appointment) {
                   return CancelAppointmentListItemWidget(
-                    patientName: appointment.patient,
-                    date: appointment.date,
+                    patientName: appointment.patient.toString(),
+                    date: DateTime.tryParse(appointment.date!)!,
                   );
                 }).toList(),
               ] else

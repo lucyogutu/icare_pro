@@ -33,15 +33,6 @@ class ZeroStateWidget extends StatelessWidget {
             text,
             style: boldSize18Text(AppColors.primaryColor),
           ),
-          largeVerticalSizedBox,
-          SizedBox(
-            height: 40,
-            width: MediaQuery.of(context).size.width * 0.7,
-            child: ICareElevatedButton(
-              text: okayThanksString,
-              onPressed: onPressed,
-            ),
-          )
         ],
       ),
     );

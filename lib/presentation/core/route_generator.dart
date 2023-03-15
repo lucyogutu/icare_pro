@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icare_pro/domain/entities/user.dart';
 import 'package:icare_pro/presentation/core/routes.dart';
 import 'package:icare_pro/presentation/home/pages/tab_appointment_page.dart';
 import 'package:icare_pro/presentation/onboarding/pages/forgot_password_page.dart';
@@ -12,7 +13,7 @@ import 'package:icare_pro/presentation/profile/pages/profile_page.dart';
 
 class GenerateRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    // final args = settings.arguments;
+    final args = settings.arguments;
     switch (settings.name) {
       case AppRoutes.tabEntry:
         return MaterialPageRoute(
@@ -36,7 +37,8 @@ class GenerateRoute {
         );
       case AppRoutes.editPersonalDetails:
         return MaterialPageRoute(
-          builder: (BuildContext context) => const EditPersonalDetailsPage(),
+          builder: (BuildContext context) =>
+              EditPersonalDetailsPage(getProfileDetails: args as Future<User>?),
         );
       case AppRoutes.history:
         return MaterialPageRoute(
