@@ -21,6 +21,8 @@ class PersonalDetailsPage extends StatefulWidget {
 class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
   Future<User>? _getProfileDetails;
 
+  TextEditingController bioController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +52,7 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
                   child: CircularProgressIndicator(),
                 );
               }
+              bioController.text = snapshot.data!.bio!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -161,18 +164,14 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
                       ),
                       verySmallVerticalSizedBox,
                       TextFormField(
+                        controller: bioController,
                         cursorColor: AppColors.primaryColor,
                         readOnly: true,
                         decoration: InputDecoration(
-                          hintStyle:
-                              const TextStyle(color: AppColors.hintTextColor),
                           prefixIcon: const Icon(
                             Icons.person,
                             color: AppColors.primaryColor,
                           ),
-                          labelText: snapshot.data!.bio!,
-
-                          //lable style
                           labelStyle: normalSize14Text(AppColors.primaryColor),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -192,7 +191,7 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
                         style: const TextStyle(
                           color: AppColors.blackColor,
                         ),
-                        maxLines: 3,
+                        maxLines: 5,
                       ),
                       verySmallVerticalSizedBox,
                       Text(

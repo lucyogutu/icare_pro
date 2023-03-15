@@ -7,8 +7,13 @@ import 'package:icare_pro/presentation/core/icare_text_button.dart';
 // utils.dart, a class holding common methods
 
 // alert dialog for logout and optout options
-Future<dynamic> showAlertDialog(BuildContext context, String title,
-    String content, VoidCallback yesButton) {
+Future<dynamic> showAlertDialog({
+  required BuildContext context,
+  required String title,
+  required String content,
+  required VoidCallback yesButton,
+  required String buttonText,
+}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -23,7 +28,7 @@ Future<dynamic> showAlertDialog(BuildContext context, String title,
           ),
           ICareTextButton(
             onPressed: yesButton,
-            text: yesLogout,
+            text: buttonText,
             style: boldSize14Text(AppColors.redColor),
           ),
         ],

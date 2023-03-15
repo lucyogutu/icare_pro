@@ -10,6 +10,7 @@ class APIEndpoints {
   static const  String profileView = 'doctors/profile-view/';
   static const  String editProfileView = 'doctors/edit-profile-view/';
 
+  //not implemented yet
   static const  String viewAppointments = 'doctors/view-appointments/';
   static const  String viewCanceledAppointments = 'doctors/view-canceled-appointments/';
   static const  String viewPastAppointments = 'doctors/view-past-appointments/';
