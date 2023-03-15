@@ -21,6 +21,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   Future<User>? _getProfileDetails;
   Future<User>? _logoutUser;
+  Future<User>? _optoutUser;
 
   @override
   void initState() {
@@ -228,7 +229,27 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: optOutString,
                       content: optoutDescription,
                       yesButton: () {
-                        Navigator.of(context).pushNamed(AppRoutes.tabEntry);
+                        if (_optoutUser == null) {
+                          _optoutUser = optoutUser();
+                          Navigator.of(context).pushNamed(AppRoutes.tabEntry);
+                        } else {
+                          FutureBuilder(
+                            future: _optoutUser,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return const SnackBar(
+                                  content: Text('optout successfull'),
+                                );
+                              } else if (snapshot.hasError) {
+                                return const Text('Error Occurred');
+                              }
+
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+                        }
                       },
                       buttonText: yesOptout,
                     );

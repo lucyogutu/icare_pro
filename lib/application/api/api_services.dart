@@ -14,6 +14,7 @@ class APIService {
 
 }
 
+// register doctor into the application
 Future<User> registerUser(User user) async {
   Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.registerDoctor);
   try {
@@ -53,6 +54,7 @@ Future<User> registerUser(User user) async {
   }
 }
 
+// login doctor into the application
 Future<User> loginUser(User user) async {
   Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.loginDoctor);
   try {
@@ -81,6 +83,7 @@ Future<User> loginUser(User user) async {
   }
 }
 
+// logout doctor out of the application
 Future<User> logoutUser() async {
   final authToken = await storage.read(key: 'access');
   final refreshToken = await storage.read(key: 'refresh');
@@ -108,6 +111,31 @@ Future<User> logoutUser() async {
   }
 }
 
+// delete doctor out of the application
+Future<User> optoutUser() async {
+  final authToken = await storage.read(key: 'access');
+
+  Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.optoutDoctor);
+  try {
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Authorization': 'Bearer $authToken',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 204) {
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(response.body);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+// get profile details
 Future<User> getProfile() async {
   final authToken = await storage.read(key: 'access');
   Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.profileView);
@@ -130,6 +158,7 @@ Future<User> getProfile() async {
   }
 }
 
+// edit profile details
 Future<User> editUserProfile(User user) async {
   final authToken = await storage.read(key: 'access');
 
@@ -168,6 +197,7 @@ Future<User> editUserProfile(User user) async {
   }
 }
 
+// get upcoming appointments
 Future<List<Appointment>> getUpcomingAppointments() async {
   final authToken = await storage.read(key: 'access');
   Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.viewAppointments);
@@ -192,6 +222,7 @@ Future<List<Appointment>> getUpcomingAppointments() async {
   }
 }
 
+// get canceled appointments
 Future<List<Appointment>> getCanceledAppointments() async {
   final authToken = await storage.read(key: 'access');
   Uri url =
@@ -217,6 +248,7 @@ Future<List<Appointment>> getCanceledAppointments() async {
   }
 }
 
+// get past appointments
 Future<List<Appointment>> getPastAppointments() async {
   final authToken = await storage.read(key: 'access');
   Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.viewPastAppointments);

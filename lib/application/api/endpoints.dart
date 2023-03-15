@@ -7,6 +7,7 @@ class APIEndpoints {
   static const  String registerDoctor = 'doctors/register-doctor/';
   static const  String loginDoctor = 'doctors/login-doctor/';
   static const  String logoutDoctor = 'doctors/logout-doctor/';
+  static const  String optoutDoctor = 'doctors/optout-doctor/';
   static const  String profileView = 'doctors/profile-view/';
   static const  String editProfileView = 'doctors/edit-profile-view/';
 
