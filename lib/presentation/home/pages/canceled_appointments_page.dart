@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:icare_pro/application/api/api_services.dart';
 import 'package:icare_pro/application/core/colors.dart';
 import 'package:icare_pro/application/core/spaces.dart';
 import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
+import 'package:icare_pro/domain/entities/patient.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/presentation/core/zero_state_widget.dart';
 import 'package:icare_pro/presentation/home/widgets/cancel_appointment_list_item.dart';
 
-class CancelAppointmentsPage extends StatelessWidget {
+class CancelAppointmentsPage extends StatefulWidget {
   const CancelAppointmentsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<Appointment> appointments = [
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: fullNameHintString,
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'Lucy Ogutu',
-      // ),
-    ];
+  State<CancelAppointmentsPage> createState() => _CancelAppointmentsPageState();
+}
 
+class _CancelAppointmentsPageState extends State<CancelAppointmentsPage> {
+  Future<List<Appointment>>? _appointments;
+
+  @override
+  void initState() {
+    super.initState();
+    _appointments = getCanceledAppointments();
+  }
+
+  Future<Patient?> getPatientById(int id) async {
+    List<Patient>? patients = await getPatients();
+    return patients.where((patient) => patient.id == id).first;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -39,18 +48,47 @@ class CancelAppointmentsPage extends StatelessWidget {
                 ),
               ),
               smallVerticalSizedBox,
-              if (appointments.isNotEmpty) ...[
-                ...appointments.map((appointment) {
-                  return CancelAppointmentListItemWidget(
-                    patientName: appointment.patient.toString(),
-                    date: DateTime.tryParse(appointment.date!)!,
+              FutureBuilder(
+                future: _appointments,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return const ZeroStateWidget(
+                      text: 'No canceled appointments',
+                    );
+                  }
+
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      var appointment = snapshot.data![index];
+
+                      return FutureBuilder(
+                        future: getPatientById(appointment.patient!),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          var patient = snapshot.data!;
+                          return CancelAppointmentListItemWidget(
+                            patientFirstName: patient.firstName!,
+                            patientLastName: patient.lastName!,
+                            date: DateTime.tryParse(appointment.date!)!,
+                          );
+                        },
+                      );
+                    },
                   );
-                }).toList(),
-              ] else
-                ZeroStateWidget(
-                  text: 'No canceled appointments',
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
+                },
+              ),
             ],
           ),
         ),

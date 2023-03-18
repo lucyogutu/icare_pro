@@ -9,14 +9,16 @@ import 'package:intl/intl.dart';
 class AppointmentListItemWidget extends StatelessWidget {
   const AppointmentListItemWidget({
     super.key,
-    required this.patientName,
-    this.onPressed,
+    required this.patientFirstName,
+    required this.patientLastName,
     required this.date,
+    required this.startTime,
   });
 
-  final String patientName;
+  final String patientFirstName;
+  final String patientLastName;
   final DateTime date;
-  final VoidCallback? onPressed;
+  final DateTime startTime;
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +72,11 @@ class AppointmentListItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              patientName,
+                              '$patientFirstName $patientLastName',
                               style: boldSize18Text(AppColors.blackColor),
                             ),
                             Text(
-                              DateFormat.Hm().format(date),
+                              DateFormat.jm().format(startTime),
                               style: boldSize16Text(AppColors.blackColor),
                             ),
                           ],
@@ -87,13 +89,13 @@ class AppointmentListItemWidget extends StatelessWidget {
                                 text: cancelString,
                                 buttonColor: AppColors.errorColor,
                                 borderColor: Colors.transparent,
-                                onPressed: onPressed,
+                                onPressed: () {},
                               ),
                             ),
                             SizedBox(
                               child: ICareElevatedButton(
                                 text: rescheduleString,
-                                onPressed: onPressed,
+                                onPressed: () {},
                               ),
                             ),
                           ],

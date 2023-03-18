@@ -3,18 +3,21 @@ import 'package:icare_pro/application/core/colors.dart';
 import 'package:icare_pro/application/core/spaces.dart';
 import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
+import 'package:intl/intl.dart';
 
 class HistoryItemWidget extends StatelessWidget {
   const HistoryItemWidget({
     super.key,
     required this.date,
     required this.time,
-    required this.name,
+    required this.patientFirstName,
+    required this.patientLastName,
   });
 
   final String date;
-  final String time;
-  final String name;
+  final DateTime time;
+  final String patientFirstName;
+  final String patientLastName;
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +63,11 @@ class HistoryItemWidget extends StatelessWidget {
                       style: normalSize16Text(AppColors.blackColor),
                     ),
                     Text(
-                      time,
+                      DateFormat.jm().format(time),
                       style: normalSize16Text(AppColors.blackColor),
                     ),
                     Text(
-                      name,
+                      '$patientFirstName $patientLastName',
                       style: normalSize16Text(AppColors.blackColor),
                     ),
                   ],

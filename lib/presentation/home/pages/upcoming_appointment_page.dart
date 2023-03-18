@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:icare_pro/application/api/api_services.dart';
 import 'package:icare_pro/application/core/colors.dart';
 import 'package:icare_pro/application/core/spaces.dart';
 import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
+import 'package:icare_pro/domain/entities/patient.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/presentation/core/zero_state_widget.dart';
 import 'package:icare_pro/presentation/home/widgets/appointment_list_item_widget.dart';
 
-class UpcomingAppointmentsPage extends StatelessWidget {
+class UpcomingAppointmentsPage extends StatefulWidget {
   const UpcomingAppointmentsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<Appointment> appointments = [
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'John Doe',
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'Lucy Ogutu',
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'Jane Doe',
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'Emily White',
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'James Bond',
-      // ),
-      // Appointment(
-      //   date: DateTime.now(),
-      //   patient: 'Alexander',
-      // ),
-    ];
+  State<UpcomingAppointmentsPage> createState() =>
+      _UpcomingAppointmentsPageState();
+}
 
+class _UpcomingAppointmentsPageState extends State<UpcomingAppointmentsPage> {
+  Future<List<Appointment>>? _appointments;
+
+  @override
+  void initState() {
+    super.initState();
+    _appointments = getUpcomingAppointments();
+  }
+
+  Future<Patient?> getPatientById(int id) async {
+    List<Patient>? patients = await getPatients();
+    return patients.where((patient) => patient.id == id).first;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -54,19 +48,49 @@ class UpcomingAppointmentsPage extends StatelessWidget {
                   style: boldSize16Text(AppColors.blackColor),
                 ),
               ),
-              smallVerticalSizedBox,
-              if (appointments.isNotEmpty) ...[
-                ...appointments.map((appointment) {
-                  return AppointmentListItemWidget(
-                    patientName: appointment.patient.toString(),
-                    date: DateTime.tryParse(appointment.date!)!,
+              FutureBuilder(
+                future: _appointments,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return const ZeroStateWidget(
+                      text: 'No upcoming appointments',
+                    );
+                  }
+
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      var appointment = snapshot.data![index];
+
+                      return FutureBuilder(
+                        future: getPatientById(appointment.patient!),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          var patient = snapshot.data!;
+                          return AppointmentListItemWidget(
+                            patientFirstName: patient.firstName!,
+                            patientLastName: patient.lastName!,
+                            date: DateTime.tryParse(appointment.date!)!,
+                            startTime: DateTime.parse(
+                                '${appointment.date!} ${appointment.startTime!}'),
+                          );
+                        },
+                      );
+                    },
                   );
-                }).toList(),
-              ] else
-                ZeroStateWidget(
-                  text: 'No scheduled appointments',
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
+                },
+              ),
             ],
           ),
         ),

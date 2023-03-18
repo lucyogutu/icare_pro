@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:icare_pro/application/api/endpoints.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
+import 'package:icare_pro/domain/entities/patient.dart';
 import 'package:icare_pro/domain/entities/user.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
 
@@ -270,5 +271,29 @@ Future<List<Appointment>> getPastAppointments() async {
     }
   } catch (e) {
     throw Exception(somethingWentWrongString);
+  }
+}
+
+// get a list of patients
+Future<List<Patient>> getPatients() async {
+  final authToken = await storage.read(key: 'access');
+  Uri url = Uri.parse(APIEndpoints.baseUrl + APIEndpoints.patientsList);
+  try {
+    final response = await http.get(
+      url,
+      headers: <String, String>{
+        'Authorization': 'Bearer $authToken',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      Iterable jsonList = json.decode(response.body);
+      return List<Patient>.from(jsonList.map((model) => Patient.fromJson(model)));
+    } else {
+      throw Exception(response.body);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
   }
 }

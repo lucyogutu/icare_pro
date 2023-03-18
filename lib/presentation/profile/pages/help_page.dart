@@ -74,11 +74,11 @@ class _HelpPageState extends State<HelpPage> {
                         title: Text(helpItem.headerText),
                       );
                     },
-                    body:Padding(
+                    body: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(helpItem.expandedText),
                     ),
-                  
+                    isExpanded: helpItem.isExpanded,
                   );
                 }).toList(),
               ),

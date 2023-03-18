@@ -9,11 +9,13 @@ import 'package:intl/intl.dart';
 class CancelAppointmentListItemWidget extends StatelessWidget {
   const CancelAppointmentListItemWidget({
     super.key,
-    required this.patientName,
+    required this.patientFirstName,
+    required this.patientLastName,
     required this.date,
   });
 
-  final String patientName;
+  final String patientFirstName;
+  final String patientLastName;
   final DateTime date;
 
   @override
@@ -68,7 +70,7 @@ class CancelAppointmentListItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              patientName,
+                              '$patientFirstName $patientLastName',
                               style: boldSize18Text(AppColors.blackColor),
                             ),
                             Text(
