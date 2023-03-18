@@ -48,10 +48,10 @@ Future<User> registerUser(User user) async {
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -77,10 +77,10 @@ Future<User> loginUser(User user) async {
 
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -105,10 +105,10 @@ Future<User> logoutUser() async {
     if (response.statusCode == 205) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -129,10 +129,10 @@ Future<User> optoutUser() async {
     if (response.statusCode == 204) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(e.toString());
+    rethrow;
   }
 }
 
@@ -152,10 +152,10 @@ Future<User> getProfile() async {
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -191,10 +191,10 @@ Future<User> editUserProfile(User user) async {
     if (response.statusCode == 201) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -216,10 +216,10 @@ Future<List<Appointment>> getUpcomingAppointments() async {
       return List<Appointment>.from(
           jsonList.map((model) => Appointment.fromJson(model)));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -242,10 +242,10 @@ Future<List<Appointment>> getCanceledAppointments() async {
       return List<Appointment>.from(
           jsonList.map((model) => Appointment.fromJson(model)));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -267,10 +267,10 @@ Future<List<Appointment>> getPastAppointments() async {
       return List<Appointment>.from(
           jsonList.map((model) => Appointment.fromJson(model)));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(somethingWentWrongString);
+    rethrow;
   }
 }
 
@@ -289,11 +289,12 @@ Future<List<Patient>> getPatients() async {
 
     if (response.statusCode == 200) {
       Iterable jsonList = json.decode(response.body);
-      return List<Patient>.from(jsonList.map((model) => Patient.fromJson(model)));
+      return List<Patient>.from(
+          jsonList.map((model) => Patient.fromJson(model)));
     } else {
-      throw Exception(response.body);
+      throw jsonDecode(response.body)['message'];
     }
   } catch (e) {
-    throw Exception(e.toString());
+    rethrow;
   }
 }

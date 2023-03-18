@@ -36,3 +36,26 @@ Future<dynamic> showAlertDialog({
     },
   );
 }
+
+// error alert for handling futures
+void errorAlert(BuildContext context) {
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(errorString),
+            content: const Text(' Error Occurred'),
+            actions: [
+              ICareTextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                text: 'OK',
+                style: boldSize14Text(AppColors.primaryColor),
+              ),
+            ],
+          );
+        });
+  });
+}

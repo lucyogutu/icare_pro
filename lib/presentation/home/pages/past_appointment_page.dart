@@ -58,7 +58,7 @@ class _PastAppointmentsPageState extends State<PastAppointmentsPage> {
                   }
                   if (snapshot.data!.isEmpty) {
                     return const ZeroStateWidget(
-                      text: 'No past appointments',
+                      text: noPastAppointmentsString,
                     );
                   }
 

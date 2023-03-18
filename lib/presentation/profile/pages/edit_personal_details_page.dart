@@ -12,6 +12,7 @@ import 'package:icare_pro/domain/value_objects/svg_asset_strings.dart';
 import 'package:icare_pro/presentation/core/icare_elevated_button.dart';
 import 'package:icare_pro/presentation/core/icare_text_button.dart';
 import 'package:icare_pro/presentation/core/icare_text_form_field.dart';
+import 'package:icare_pro/presentation/core/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -143,7 +144,7 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                 );
               }
               if (snapshot.hasError) {
-                return const Text('error occurred');
+                errorAlert(context);
               }
               firstNameController.text = snapshot.data!.firstName!;
               lastNameController.text = snapshot.data!.lastName!;
@@ -739,32 +740,57 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                     height: 40,
                     child: ICareElevatedButton(
                       text: saveString,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          _editProfileDetails = editUserProfile(_user);
-                        }
 
-                        if (!snapshot.hasError) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Success Message'),
-                                content: const Text(
-                                    'User profile updated successfully'),
-                                actions: [
-                                  ICareTextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    text: 'OK',
-                                    style:
-                                        boldSize14Text(AppColors.primaryColor),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          try {
+                            final user = await editUserProfile(_user);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text(successString),
+                                    content: const Text(successProfileUpdated),
+                                    actions: [
+                                      ICareTextButton(
+                                        onPressed: () {
+                                          widget.getProfileDetails;
+                                          Navigator.of(context).pop();
+                                        },
+                                        text: okString,
+                                        style: boldSize14Text(
+                                            AppColors.primaryColor),
+                                      ),
+                                    ],
+                                  );
+                                });
+                            widget.getProfileDetails;
+                            _formKey.currentState!.reset();
+                            setState(() {
+                              _editProfileDetails = Future.value(user);
+                            });
+                          } catch (error) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(somethingWentWrongString),
+                                  content: Text(error.toString()),
+                                  actions: [
+                                    ICareTextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      text: okString,
+                                      style: boldSize14Text(
+                                          AppColors.primaryColor),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
                       },
                     ),

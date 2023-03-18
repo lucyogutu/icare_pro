@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icare_pro/application/api/api_services.dart';
 import 'package:icare_pro/application/core/colors.dart';
-import 'package:icare_pro/application/core/spaces.dart';
 import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
 import 'package:icare_pro/domain/entities/patient.dart';
@@ -58,7 +57,7 @@ class _UpcomingAppointmentsPageState extends State<UpcomingAppointmentsPage> {
                   }
                   if (snapshot.data!.isEmpty) {
                     return const ZeroStateWidget(
-                      text: 'No upcoming appointments',
+                      text: noUpcomingAppointmentsString,
                     );
                   }
 

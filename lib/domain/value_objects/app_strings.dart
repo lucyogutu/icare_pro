@@ -69,6 +69,7 @@ const String upcomingString = 'Upcoming';
 const String pastString = 'Past';
 const String canceledString = 'Canceled';
 const String okayThanksString = 'Okay, Thanks';
+const String okString = 'OK';
 
 const String timeString = 'Time';
 const String dateString = 'Date';
@@ -108,7 +109,17 @@ const String passwordsMustMatch = 'Passwords must match';
 
 const String retryString = 'RETRY';
 const String errorString = 'Error';
+const String errorOccurredString = 'Error Occurred';
+const String dismissString = 'Dismiss';
 const String successUserRegistered = 'User registered successfully';
+const String successProfileUpdated = 'User profile updated Successfully';
 const String successLogin = 'Login successful';
+const String successLogout = 'Logout successful';
+const String successOptout = 'Optout successful';
+const String successString = 'Success';
 
 const String somethingWentWrongString = 'Something went wrong';
+
+const String noCanceledAppointmentsString = 'No canceled appointments';
+const String noPastAppointmentsString = 'No past appointments';
+const String noUpcomingAppointmentsString = 'No upcoming appointments';

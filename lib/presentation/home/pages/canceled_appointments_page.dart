@@ -58,7 +58,7 @@ class _CancelAppointmentsPageState extends State<CancelAppointmentsPage> {
                   }
                   if (snapshot.data!.isEmpty) {
                     return const ZeroStateWidget(
-                      text: 'No canceled appointments',
+                      text: noCanceledAppointmentsString,
                     );
                   }
 

@@ -60,47 +60,93 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColors.primaryColorLight,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: (_loginUser == null)
-              ? Column(
-                  children: [
-                    smallVerticalSizedBox,
-                    Center(
-                      child: SvgPicture.asset(accessAccountSvg),
-                    ),
-                    largeVerticalSizedBox,
-                    Text(
-                      welcomeString,
-                      style: boldSize30Text(
-                        AppColors.primaryColor,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                smallVerticalSizedBox,
+                Center(
+                  child: SvgPicture.asset(accessAccountSvg),
+                ),
+                largeVerticalSizedBox,
+                Text(
+                  welcomeString,
+                  style: boldSize30Text(
+                    AppColors.primaryColor,
+                  ),
+                ),
+                largeVerticalSizedBox,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      ICareTextFormField(
+                        label: emailString,
+                        prefixIcon: Icons.mail,
+                        hintText: emailHintString,
+                        fillColor: AppColors.whiteColor,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (String? value) {
+                          if (!emailRegex.hasMatch(value!) || value.isEmpty) {
+                            return inputValidEmailString;
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _user = User(
+                            firstName: _user.firstName,
+                            lastName: _user.lastName,
+                            email: value,
+                            phoneNumber: _user.phoneNumber,
+                            gender: _user.gender,
+                            password: _user.password,
+                            dateOfBirth: _user.dateOfBirth,
+                            bio: _user.bio,
+                            specialization: _user.specialization,
+                            yearsOfExperience: _user.yearsOfExperience,
+                            clinic: _user.clinic,
+                            address: _user.address,
+                          );
+                        },
                       ),
-                    ),
-                    largeVerticalSizedBox,
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          ICareTextFormField(
-                            label: emailString,
-                            prefixIcon: Icons.mail,
-                            hintText: emailHintString,
-                            fillColor: AppColors.whiteColor,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (String? value) {
-                              if (!emailRegex.hasMatch(value!) ||
-                                  value.isEmpty) {
-                                return inputValidEmailString;
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
+                      mediumVerticalSizedBox,
+                      ICareTextFormField(
+                        label: passwordString,
+                        prefixIcon: Icons.lock,
+                        hintText: passwordHintString,
+                        fillColor: AppColors.whiteColor,
+                        obscureText: !_showPassword,
+                        suffixIcon: _showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        suffixOnPressed: () {
+                          setState(() {
+                            _showPassword = !_showPassword;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return fieldCannotBeEmptyString;
+                          } else if (value.length < 8) {
+                            return passwordHave8Characters;
+                          } else if (isNumeric(value)) {
+                            return passwordCannotContainNumbersOnly;
+                          } else if (!value.contains(passwordRegex) ||
+                              !value.contains(numericRegex)) {
+                            return passwordTooCommonString;
+                          }
+
+                          return null;
+                        },
+                        onSaved: (value) {
+                          setState(
+                            () {
                               _user = User(
                                 firstName: _user.firstName,
                                 lastName: _user.lastName,
-                                email: value,
+                                email: _user.email,
                                 phoneNumber: _user.phoneNumber,
                                 gender: _user.gender,
-                                password: _user.password,
+                                password: value,
                                 dateOfBirth: _user.dateOfBirth,
                                 bio: _user.bio,
                                 specialization: _user.specialization,
@@ -109,173 +155,122 @@ class _LoginPageState extends State<LoginPage> {
                                 address: _user.address,
                               );
                             },
-                          ),
-                          mediumVerticalSizedBox,
-                          ICareTextFormField(
-                            label: passwordString,
-                            prefixIcon: Icons.lock,
-                            hintText: passwordHintString,
-                            fillColor: AppColors.whiteColor,
-                            obscureText: !_showPassword,
-                            suffixIcon: _showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            suffixOnPressed: () {
-                              setState(() {
-                                _showPassword = !_showPassword;
-                              });
-                            },
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return fieldCannotBeEmptyString;
-                              } else if (value.length < 8) {
-                                return passwordHave8Characters;
-                              } else if (isNumeric(value)) {
-                                return passwordCannotContainNumbersOnly;
-                              } else if (!value.contains(passwordRegex) ||
-                                  !value.contains(numericRegex)) {
-                                return passwordTooCommonString;
-                              }
+                          );
+                        },
+                      ),
+                      smallVerticalSizedBox,
+                      ICareTextButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(AppRoutes.forgotPassword),
+                        text: forgotPasswordString,
+                        style: boldSize16Text(AppColors.primaryColor),
+                      ),
+                      smallVerticalSizedBox,
+                      SizedBox(
+                        height: 48,
+                        width: double.infinity,
+                        child: ICareElevatedButton(
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool('showHome', true);
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
 
-                              return null;
-                            },
-                            onSaved: (value) {
-                              setState(
-                                () {
-                                  _user = User(
-                                    firstName: _user.firstName,
-                                    lastName: _user.lastName,
-                                    email: _user.email,
-                                    phoneNumber: _user.phoneNumber,
-                                    gender: _user.gender,
-                                    password: value,
-                                    dateOfBirth: _user.dateOfBirth,
-                                    bio: _user.bio,
-                                    specialization: _user.specialization,
-                                    yearsOfExperience: _user.yearsOfExperience,
-                                    clinic: _user.clinic,
-                                    address: _user.address,
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                          smallVerticalSizedBox,
-                          ICareTextButton(
-                            onPressed: () => Navigator.of(context)
-                                .pushNamed(AppRoutes.forgotPassword),
-                            text: forgotPasswordString,
-                            style: boldSize16Text(AppColors.primaryColor),
-                          ),
-                          smallVerticalSizedBox,
-                          SizedBox(
-                            height: 48,
-                            width: double.infinity,
-                            child: ICareElevatedButton(
-                              onPressed: () async {
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.setBool('showHome', true);
-                                if (_formKey.currentState!.validate()) {
-                                  _formKey.currentState!.save();
-                                  _loginUser = loginUser(_user);
-                                  Navigator.of(context).pushReplacementNamed(
-                                      AppRoutes.tabAppointment);
-                                }
-                              },
-                              text: signInString,
-                            ),
-                          ),
-                          smallVerticalSizedBox,
-                          Text(
-                            orString,
-                            textAlign: TextAlign.center,
-                            style: normalSize14Text(AppColors.greyTextColor),
-                          ),
-                          smallVerticalSizedBox,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                icon: SvgPicture.asset(googleIconSvg),
-                                onPressed: () {},
-                              ),
-                              largeHorizontalSizedBox,
-                              IconButton(
-                                icon: SvgPicture.asset(facebookIconSvg),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                          smallVerticalSizedBox,
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: dontHaveAccountString,
-                                  style: normalSize12Text(
-                                    AppColors.blackColor,
+                              try {
+                                final user = await loginUser(_user);
+                                Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.tabAppointment);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: const Text(successLogin),
+                                  backgroundColor: (Colors.black87),
+                                  duration: const Duration(seconds: 5),
+                                  action: SnackBarAction(
+                                    label: dismissString,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    },
                                   ),
-                                ),
-                                TextSpan(
-                                  text: signUpString,
-                                  style: normalSize12Text(
-                                    AppColors.primaryColor,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = widget.signUp,
-                                ),
-                              ],
-                            ),
+                                ));
+                                setState(() {
+                                  _loginUser = Future.value(user);
+                                });
+                              } catch (error) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title:
+                                            const Text(somethingWentWrongString),
+                                        content: Text(error.toString()),
+                                        actions: [
+                                          ICareTextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            text: okString,
+                                            style: boldSize14Text(
+                                                AppColors.primaryColor),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+                          },
+                          text: signInString,
+                        ),
+                      ),
+                      smallVerticalSizedBox,
+                      Text(
+                        orString,
+                        textAlign: TextAlign.center,
+                        style: normalSize14Text(AppColors.greyTextColor),
+                      ),
+                      smallVerticalSizedBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: SvgPicture.asset(googleIconSvg),
+                            onPressed: () {},
+                          ),
+                          largeHorizontalSizedBox,
+                          IconButton(
+                            icon: SvgPicture.asset(facebookIconSvg),
+                            onPressed: () {},
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                )
-              : Center(
-                  child: buildFutureBuilder(),
-                ),
-        ),
-      ),
-    );
-  }
-
-  FutureBuilder<User> buildFutureBuilder() {
-    return FutureBuilder<User>(
-      future: _loginUser,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          // return const SnackBar(
-          //   content: Text('User login successfully'),
-          // );
-          return const Center(
-            child: Text(successLogin),
-          );
-        } else if (snapshot.hasError) {
-          return Flexible(
-            child: Center(
-              child: AlertDialog(
-                title: const Text(errorString),
-                content: Text('${snapshot.error}'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(retryString),
+                      smallVerticalSizedBox,
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: dontHaveAccountString,
+                              style: normalSize12Text(
+                                AppColors.blackColor,
+                              ),
+                            ),
+                            TextSpan(
+                              text: signUpString,
+                              style: normalSize12Text(
+                                AppColors.primaryColor,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = widget.signUp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          );
-        }
-
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

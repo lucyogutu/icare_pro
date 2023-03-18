@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icare_pro/application/core/colors.dart';
 import 'package:icare_pro/presentation/core/route_generator.dart';
+import 'package:icare_pro/presentation/home/pages/tab_appointment_page.dart';
 import 'package:icare_pro/presentation/onboarding/pages/tabbar_entry.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           onSurface: AppColors.primaryColor,
         ),
       ),
-      home: showHome ? const TabbarEntryPage() : const TabbarEntryPage(),
+      home: showHome ? const TabAppointmentPage() : const TabbarEntryPage(),
       onGenerateRoute: GenerateRoute.onGenerateRoute,
     );
   }
