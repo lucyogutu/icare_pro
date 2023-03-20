@@ -162,23 +162,6 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   smallVerticalSizedBox,
-                  Center(
-                    child: Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: AppColors.primaryColor.withOpacity(0.25),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: FittedBox(
-                          child: SvgPicture.asset(userSvg),
-                        ),
-                      ),
-                    ),
-                  ),
-                  smallVerticalSizedBox,
                   Text(
                     '${snapshot.data!.firstName} ${snapshot.data!.lastName}',
                     style: boldSize18Text(AppColors.blackColor),
@@ -600,7 +583,7 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                         ICareTextFormField(
                           controller: specializationController,
                           label: specializationString,
-                          prefixIcon: Icons.person,
+                          prefixIcon: Icons.work,
                           fillColor: AppColors.primaryColorLight,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -634,7 +617,7 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                         ICareTextFormField(
                           controller: yrOfExpController,
                           label: yearsOfExperienceString,
-                          prefixIcon: Icons.person,
+                          prefixIcon: Icons.work_history,
                           fillColor: AppColors.primaryColorLight,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -668,7 +651,7 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                         ICareTextFormField(
                           controller: clinicController,
                           label: clinicString,
-                          prefixIcon: Icons.person,
+                          prefixIcon: Icons.apartment,
                           fillColor: AppColors.primaryColorLight,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -702,7 +685,7 @@ class _EditPersonalDetailsPageState extends State<EditPersonalDetailsPage> {
                         ICareTextFormField(
                           controller: addressControler,
                           label: addressString,
-                          prefixIcon: Icons.person,
+                          prefixIcon: Icons.place,
                           fillColor: AppColors.primaryColorLight,
                           validator: (String? value) {
                             if (value!.isEmpty) {

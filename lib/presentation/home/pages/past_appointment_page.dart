@@ -6,6 +6,7 @@ import 'package:icare_pro/application/core/text_styles.dart';
 import 'package:icare_pro/domain/entities/appointment.dart';
 import 'package:icare_pro/domain/entities/patient.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
+import 'package:icare_pro/presentation/core/utils.dart';
 import 'package:icare_pro/presentation/core/zero_state_widget.dart';
 import 'package:icare_pro/presentation/home/widgets/history_item_widget.dart';
 
@@ -74,8 +75,11 @@ class _PastAppointmentsPageState extends State<PastAppointmentsPage> {
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return const Center(
-                              child: CircularProgressIndicator(),
+                              child: SizedBox(),
                             );
+                          }
+                          if (snapshot.hasError) {
+                            errorAlert(context);
                           }
                           var patient = snapshot.data!;
                           return HistoryItemWidget(

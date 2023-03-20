@@ -68,38 +68,48 @@ class AppointmentListItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '$patientFirstName $patientLastName',
-                              style: boldSize18Text(AppColors.blackColor),
-                            ),
-                            Text(
-                              DateFormat.jm().format(startTime),
-                              style: boldSize16Text(AppColors.blackColor),
-                            ),
-                          ],
+                        Text(
+                          '$patientFirstName $patientLastName',
+                          style: boldSize18Text(AppColors.blackColor),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              child: ICareElevatedButton(
-                                text: cancelString,
-                                buttonColor: AppColors.errorColor,
-                                borderColor: Colors.transparent,
-                                onPressed: () {},
-                              ),
-                            ),
-                            SizedBox(
-                              child: ICareElevatedButton(
-                                text: rescheduleString,
-                                onPressed: () {},
-                              ),
-                            ),
-                          ],
+                        Text(
+                          DateFormat.jm().format(startTime),
+                          style: boldSize16Text(AppColors.blackColor),
                         ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   mainAxisSize: MainAxisSize.min,
+                        //   children: [
+                        //     Text(
+                        //       'Patient: $patientFirstName $patientLastName',
+                        //       style: boldSize18Text(AppColors.blackColor),
+                        //     ),
+                        //     Text(
+                        //       'Time: ${DateFormat.jm().format(startTime)}',
+                        //       style: boldSize16Text(AppColors.blackColor),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     SizedBox(
+                        //       child: ICareElevatedButton(
+                        //         text: cancelString,
+                        //         buttonColor: AppColors.errorColor,
+                        //         borderColor: Colors.transparent,
+                        //         onPressed: () {},
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //       child: ICareElevatedButton(
+                        //         text: rescheduleString,
+                        //         onPressed: () {},
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

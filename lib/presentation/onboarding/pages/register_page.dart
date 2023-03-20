@@ -9,7 +9,6 @@ import 'package:icare_pro/domain/entities/user.dart';
 import 'package:icare_pro/domain/value_objects/app_strings.dart';
 import 'package:icare_pro/domain/value_objects/enums.dart';
 import 'package:icare_pro/domain/value_objects/regex.dart';
-import 'package:icare_pro/domain/value_objects/svg_asset_strings.dart';
 import 'package:icare_pro/presentation/core/icare_elevated_button.dart';
 import 'package:icare_pro/presentation/core/icare_text_button.dart';
 import 'package:icare_pro/presentation/core/icare_text_form_field.dart';
@@ -112,22 +111,23 @@ class _RegisterPageState extends State<RegisterPage> {
       try {
         final user = await registerUser(_user);
         showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text(successString),
-                content: const Text(successUserRegistered),
-                actions: [
-                  ICareTextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    text: okString,
-                    style: boldSize14Text(AppColors.primaryColor),
-                  ),
-                ],
-              );
-            },);
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(successString),
+              content: const Text(successUserRegistered),
+              actions: [
+                ICareTextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  text: okString,
+                  style: boldSize14Text(AppColors.primaryColor),
+                ),
+              ],
+            );
+          },
+        );
         _formKey.currentState!.reset();
         setState(() {
           _registerUser = Future.value(user);
@@ -171,28 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              largeVerticalSizedBox,
-              Center(
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GestureDetector(
-                      child: SvgPicture.asset(
-                        userSvg,
-                        fit: BoxFit.cover,
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              mediumVerticalSizedBox,
+              smallVerticalSizedBox,
               Text(
                 registerString,
                 style: boldSize25Title(
@@ -601,7 +580,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // specialization
                     ICareTextFormField(
                       label: specializationString,
-                      prefixIcon: Icons.person,
+                      prefixIcon: Icons.work,
                       fillColor: AppColors.whiteColor,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -634,7 +613,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // years of experience
                     ICareTextFormField(
                       label: yearsOfExperienceString,
-                      prefixIcon: Icons.person,
+                      prefixIcon: Icons.work_history,
                       fillColor: AppColors.whiteColor,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -667,7 +646,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // clinic
                     ICareTextFormField(
                       label: clinicString,
-                      prefixIcon: Icons.person,
+                      prefixIcon: Icons.apartment,
                       fillColor: AppColors.whiteColor,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -700,7 +679,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // address
                     ICareTextFormField(
                       label: addressString,
-                      prefixIcon: Icons.person,
+                      prefixIcon: Icons.place,
                       fillColor: AppColors.whiteColor,
                       validator: (String? value) {
                         if (value!.isEmpty) {

@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 150,
+                  height: 120,
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       return FutureBuilder(
@@ -74,45 +74,73 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      width: constraints.maxWidth * 0.3,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
-                                        color: AppColors.primaryColor
-                                            .withOpacity(0.25),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: FittedBox(
-                                          child: SvgPicture.asset(userSvg),
-                                        ),
-                                      ),
-                                    ),
-                                    smallHorizontalSizedBox,
+                                    // Container(
+                                    //   width: constraints.maxWidth * 0.3,
+                                    //   decoration: BoxDecoration(
+                                    //     borderRadius: BorderRadius.circular(100),
+                                    //     color: AppColors.primaryColor
+                                    //         .withOpacity(0.25),
+                                    //   ),
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.all(16.0),
+                                    //     child: FittedBox(
+                                    //       child: SvgPicture.asset(userSvg),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // smallHorizontalSizedBox,
                                     SizedBox(
-                                      width: constraints.maxWidth * 0.48,
+                                      width: constraints.maxWidth * 0.78,
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceAround,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            '${snapshot.data!.firstName} ${snapshot.data!.lastName}',
-                                            style: boldSize18Text(
-                                                AppColors.blackColor),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.person,
+                                                size: 20,
+                                                color: AppColors.primaryColor,
+                                              ),
+                                              smallHorizontalSizedBox,
+                                              Text(
+                                                '${snapshot.data!.firstName} ${snapshot.data!.lastName}',
+                                                style: boldSize18Text(
+                                                    AppColors.blackColor),
+                                              ),
+                                            ],
                                           ),
-                                          smallVerticalSizedBox,
-                                          Text(
-                                            snapshot.data!.email!,
-                                            style: boldSize16Text(
-                                                AppColors.lightBlackTextColor),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.mail,
+                                                size: 20,
+                                                color: AppColors.primaryColor,
+                                              ),
+                                              smallHorizontalSizedBox,
+                                              Text(
+                                                snapshot.data!.email!,
+                                                style: boldSize16Text(AppColors
+                                                    .lightBlackTextColor),
+                                              ),
+                                            ],
                                           ),
-                                          smallVerticalSizedBox,
-                                          Text(
-                                            '0${snapshot.data!.phoneNumber}',
-                                            style: boldSize14Text(
-                                                AppColors.greyTextColor),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.phone,
+                                                size: 20,
+                                                color: AppColors.primaryColor,
+                                              ),
+                                              smallHorizontalSizedBox,
+                                              Text(
+                                                '0${snapshot.data!.phoneNumber}',
+                                                style: boldSize14Text(
+                                                    AppColors.greyTextColor),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

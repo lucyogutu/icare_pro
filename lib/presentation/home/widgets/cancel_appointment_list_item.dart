@@ -12,11 +12,13 @@ class CancelAppointmentListItemWidget extends StatelessWidget {
     required this.patientFirstName,
     required this.patientLastName,
     required this.date,
+    required this.startTime,
   });
 
   final String patientFirstName;
   final String patientLastName;
   final DateTime date;
+  final DateTime startTime;
 
   @override
   Widget build(BuildContext context) {
@@ -66,24 +68,32 @@ class CancelAppointmentListItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '$patientFirstName $patientLastName',
-                              style: boldSize18Text(AppColors.blackColor),
-                            ),
-                            Text(
-                              DateFormat.Hm().format(date),
-                              style: boldSize16Text(AppColors.blackColor),
-                            ),
-                          ],
+                        Text(
+                          '$patientFirstName $patientLastName',
+                          style: boldSize18Text(AppColors.blackColor),
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ICareElevatedButton(
-                              text: rescheduleString, onPressed: () {}),
+                        Text(
+                          DateFormat.jm().format(startTime),
+                          style: boldSize16Text(AppColors.blackColor),
                         ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Text(
+                        //       '$patientFirstName $patientLastName',
+                        //       style: boldSize18Text(AppColors.blackColor),
+                        //     ),
+                        //     Text(
+                        //       DateFormat.jm().format(startTime),
+                        //       style: boldSize16Text(AppColors.blackColor),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(
+                        //   width: double.infinity,
+                        //   child: ICareElevatedButton(
+                        //       text: rescheduleString, onPressed: () {}),
+                        // ),
                       ],
                     ),
                   ),

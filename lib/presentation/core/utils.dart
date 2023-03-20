@@ -45,13 +45,13 @@ void errorAlert(BuildContext context) {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text(errorString),
-            content: const Text(' Error Occurred'),
+            content: const Text(errorOccurredString),
             actions: [
               ICareTextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                text: 'OK',
+                text: okString,
                 style: boldSize14Text(AppColors.primaryColor),
               ),
             ],

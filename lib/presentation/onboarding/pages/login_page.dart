@@ -159,12 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                       smallVerticalSizedBox,
-                      ICareTextButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(AppRoutes.forgotPassword),
-                        text: forgotPasswordString,
-                        style: boldSize16Text(AppColors.primaryColor),
-                      ),
+                      // ICareTextButton(
+                      //   onPressed: () => Navigator.of(context)
+                      //       .pushNamed(AppRoutes.forgotPassword),
+                      //   text: forgotPasswordString,
+                      //   style: boldSize16Text(AppColors.primaryColor),
+                      // ),
                       smallVerticalSizedBox,
                       SizedBox(
                         height: 48,
@@ -201,8 +201,8 @@ class _LoginPageState extends State<LoginPage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title:
-                                            const Text(somethingWentWrongString),
+                                        title: const Text(
+                                            somethingWentWrongString),
                                         content: Text(error.toString()),
                                         actions: [
                                           ICareTextButton(
@@ -222,27 +222,27 @@ class _LoginPageState extends State<LoginPage> {
                           text: signInString,
                         ),
                       ),
-                      smallVerticalSizedBox,
-                      Text(
-                        orString,
-                        textAlign: TextAlign.center,
-                        style: normalSize14Text(AppColors.greyTextColor),
-                      ),
-                      smallVerticalSizedBox,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: SvgPicture.asset(googleIconSvg),
-                            onPressed: () {},
-                          ),
-                          largeHorizontalSizedBox,
-                          IconButton(
-                            icon: SvgPicture.asset(facebookIconSvg),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
+                      // smallVerticalSizedBox,
+                      // Text(
+                      //   orString,
+                      //   textAlign: TextAlign.center,
+                      //   style: normalSize14Text(AppColors.greyTextColor),
+                      // ),
+                      // smallVerticalSizedBox,
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     IconButton(
+                      //       icon: SvgPicture.asset(googleIconSvg),
+                      //       onPressed: () {},
+                      //     ),
+                      //     largeHorizontalSizedBox,
+                      //     IconButton(
+                      //       icon: SvgPicture.asset(facebookIconSvg),
+                      //       onPressed: () {},
+                      //     ),
+                      //   ],
+                      // ),
                       smallVerticalSizedBox,
                       RichText(
                         textAlign: TextAlign.center,
